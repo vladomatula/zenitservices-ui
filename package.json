@@ -1,0 +1,12 @@
+{
+  "name": "@zenitservices/zenitservices-ui",
+  "version": "1.0.0",
+  "description": "zenIT services default UI Kit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "zenIT services s.r.o.",
+  "license": "ISC"
+}
