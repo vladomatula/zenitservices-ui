@@ -67,7 +67,7 @@ jobs:
           PACKAGE_VERSION=`node -p "require('./package.json').version"`
           NPM_VERSION="$PACKAGE_VERSION-$LATEST_GIT_COMMIT_HASH"
           npm version $NPM_VERSION --no-git-tag-version
-          npm publish --access public
+          npm publish --access public --scope=@zenitservices
   publish-npm-prod:
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
