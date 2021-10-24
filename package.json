@@ -6,6 +6,8 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-prettier-react": "0.0.24",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -18,13 +20,13 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "lint": "prettier src/stories/**/*.js src/stories/**/*.ts src/stories/**/*.scss"
+    "lint": "prettier --write src/**/*.{js,jsx,ts,tsx,json,css,scss,md}"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
+      "react-app"
+    ]
+  },
     "overrides": [
       {
         "files": [
