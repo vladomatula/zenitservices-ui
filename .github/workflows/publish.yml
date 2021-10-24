@@ -1,0 +1,51 @@
+name: Publish package
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!main'
+  release:
+    types:
+      - published
+
+jobs:
+  publish-dev:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          registry-url: https://npm.pkg.github.com/
+          scope: '@drexi'
+      - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.READ_WRITE_PACKAGES}}
+      - run: git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com" && git config --global user.name "$GITHUB_ACTOR"
+      - run: bash _scripts/use-dev-version.sh
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.READ_WRITE_PACKAGES}}
+  publish-prod:
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          registry-url: https://npm.pkg.github.com/
+          scope: '@drexi'
+
+      - name: Auth with Github package registry
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.READ_WRITE_PACKAGES }}" > ~/.npmrc
+      - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.READ_WRITE_PACKAGES}}
+      - run: git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com" && git config --global user.name "$GITHUB_ACTOR"
+      - run: bash _scripts/use-prod-version.sh
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.READ_WRITE_PACKAGES}}
