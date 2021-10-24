@@ -65,7 +65,7 @@ jobs:
         run: |
           LATEST_GIT_COMMIT_HASH=`git log -n1 --format="%h"`
           PACKAGE_VERSION=`node -p "require('./package.json').version"`
-          NPM_VERSION = "$PACKAGE_VERSION-$LATEST_GIT_COMMIT_HASH"
+          NPM_VERSION="$PACKAGE_VERSION-$LATEST_GIT_COMMIT_HASH"
           npm publish --access public --tag $NPM_VERSION
   publish-npm-prod:
     if: github.event_name == 'release'
